@@ -1,0 +1,6 @@
+Options -Indexes
+
+RewriteEngine On
+RewriteRule   ^store/(.+)/(.+)$   api.php?action=store&key=$1&guid=$2   [L]
+RewriteRule   ^(.+)/(.+)/(.+)$   api.php?action=read&key=$1&guid=$2&size=$3   [L]
+RewriteRule   ^(.+)/(.+)$   api.php?action=read&key=$1&guid=$2   [L]
