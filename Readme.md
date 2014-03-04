@@ -4,8 +4,8 @@ ImageMachine is a small PHP image store and server.
 
 ## Goal/Reuirements
 
-* <b>Storing: </b>Accept a URL as an image source then provide a token to address the cached/stored image.
-* <b>Reading: </b>Accept a token to provide an image in a specified resolution and/or format.
+* __Storing:__ Accept a URL as an image source then provide a token to address the cached/stored image.
+* __Reading:__ Accept a token to provide an image in a specified resolution and/or format.
 
 
 Some secondary features required:
@@ -18,30 +18,36 @@ This image store facility is only going to be used by an automated robot, so no 
 
 
 ## Basic API format
-* <b>Storing: </b><pre style="font-size: 1.1em; font-family: monospace;">/store/secret-key/base64_encoded_URL</pre>
-* <b>Reading: </b><pre style="font-size: 1.1em; font-family: monospace;">/key/token/size</pre>
+* __Storing:__ /store/secret-key/base64_encoded_URL
+* __Reading:__ /key/token/size
 
 ## Storing an Image
 Calling the API with parameters something like this:
+
 ![http://localhost/imagemachine/store/123/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy9iL2IwL05ld1R1eC5zdmc=](http://4.bp.blogspot.com/-tGMs7M2VSu8/UxS_LKR3VEI/AAAAAAAAAd0/hiQC68tFmh8/s1600/save.png "Store Image")
 
-Where <b>store</b> is the action, <b>123</b> is the secret key to store images, and the last parameter is the [base64 encoded](http://www.base64encode.org/) result of "[https://upload.wikimedia.org/wikipedia/commons/b/b0/NewTux.svg](https://upload.wikimedia.org/wikipedia/commons/b/b0/NewTux.svg)"
+Where __store__ is the action, __123__ is the secret key to store images, and the last parameter is the [base64 encoded](http://www.base64encode.org/) result of "[https://upload.wikimedia.org/wikipedia/commons/b/b0/NewTux.svg](https://upload.wikimedia.org/wikipedia/commons/b/b0/NewTux.svg)"
 Should result in JSON looking something like this:
+
 ![](http://4.bp.blogspot.com/-H8AxBEtUrj8/UxS7fPTVFuI/AAAAAAAAAdU/318-y4LssAc/s1600/store_json_response2.PNG)
 
 The above means that the imageserver has decoded the URL, downloaded it, saved it in JPEG format (configurable), and returned a key for you to address that image in the future. The key is simply a hash of the URL passed in.
 
 ## Reading an Image
 Calling the API with parameters something like this (using the token from above):
+
 ![http://localhost/imagemachine/~/de683d6b2e298de8e831b2f632132269](http://3.bp.blogspot.com/-ExUF-gT3hRo/UxS9EN4eyeI/AAAAAAAAAdg/tTYRDZQu8c0/s1600/store1.PNG)
 
 Will return an image in the default size and cropping. 
+
 ![](http://1.bp.blogspot.com/-c5uKQqmG-Kk/UxWClxiaQ8I/AAAAAAAAAeI/waVYU2cvQWc/s1600/m.jpg)
 
 The read key in this example is simply set to a tilde (~) as security for reading images out of this store is of no concern. To specify a size/cropping scheme, append one of the predefined sizes as another parameter:
+
 ![http://localhost/imagemachine/~/de683d6b2e298de8e831b2f632132269/s](http://2.bp.blogspot.com/-gnhEz56-Rn4/UxS9EvGboAI/AAAAAAAAAdk/g49WGKBglfw/s1600/store2.PNG)
 
-Where <b>s</b> has been setup as a "small" version of the image.
+Where __s__ has been setup as a "small" version of the image.
+
 ![](http://3.bp.blogspot.com/-FG6MjMjn3lY/UxWCmM-WNZI/AAAAAAAAAeE/EBIvvZ_6Ems/s1600/s.jpg)
 
 ## My Experience on a Hosted Solution
