@@ -29,7 +29,13 @@ Calling the API with parameters something like this:
 Where __store__ is the action, __123__ is the secret key to store images, and the last parameter is the [base64 encoded](http://www.base64encode.org/) result of "[https://upload.wikimedia.org/wikipedia/commons/b/b0/NewTux.svg](https://upload.wikimedia.org/wikipedia/commons/b/b0/NewTux.svg)"
 Should result in JSON looking something like this:
 
-![](http://4.bp.blogspot.com/-H8AxBEtUrj8/UxS7fPTVFuI/AAAAAAAAAdU/318-y4LssAc/s1600/store_json_response2.PNG)
+```javascript
+{
+	status: "ok",
+	msg: "stored",
+	guid: "de683d6b2e298de8e831b2f632132269"
+}
+```
 
 The above means that the imageserver has decoded the URL, downloaded it, saved it in JPEG format (configurable), and returned a key for you to address that image in the future. The key is simply a hash of the URL passed in.
 
